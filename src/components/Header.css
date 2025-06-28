@@ -1,0 +1,180 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-header {
+  width: 100%;
+  padding: 15px 30px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Georgia', serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1c2541;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1c2541;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #6c63ff;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons svg,
+.search-icon {
+  color: #1c2541 !important;
+  border: 1px solid #ddd;
+  /* background-color: white; */
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.social-icons svg:hover,
+.search-icon:hover {
+  background-color: #f1edff;
+}
+
+
+.search-icon {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  color: #1c2541;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 50%;
+  font-size: 14px;
+  color: #1c2541;
+  transition: background-color 0.3s ease;
+  background-color: white;
+  cursor: pointer;
+}
+
+.icon-circle:hover {
+  background-color: #f1edff;
+}
+
+
+/* .search-icon:hover {
+  background-color: #f1edff;
+} */
+
+.cart-icon {
+  display: flex;
+  align-items: center;
+  color: #a678ff;
+  /* color: white; */
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.cart-icon:hover {
+  background-color: #935eff;
+}
+
+.cart-icon svg {
+  margin-right: 8px;
+}
+
+.cart-count {
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .icons {
+    align-self: flex-end;
+  }
+}
+.search-bar {
+  position: relative;
+  width: 280px;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  color: #888;
+  font-size: 14px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 10px 10px 32px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+  position: relative;
+  background-color: #fff;
+}
+
+.search-placeholder {
+  position: absolute;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #aaa;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+}

@@ -1,0 +1,51 @@
+.premium-section {
+  padding: 4rem 2rem;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.premium-section h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.3rem;
+  color: #222;
+  margin-bottom: 3rem;
+}
+
+.premium-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.premium-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.premium-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.premium-card img {
+  width: 60px;
+  margin-bottom: 1rem;
+  filter: grayscale(100%);
+}
+
+.premium-card h3 {
+  font-size: 1.1rem;
+  color: #111;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.premium-card p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}

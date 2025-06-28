@@ -1,0 +1,73 @@
+.fashion-section {
+  padding: 4rem 2rem;
+  background-color: #f7f8fa;
+  text-align: center;
+}
+
+.fashion-title {
+  font-size: 2.5rem;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 3rem;
+  color: #222;
+}
+
+.fashion-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.fashion-card {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.fashion-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.fashion-card:hover img {
+  transform: scale(1.05);
+}
+
+.fashion-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  transition: opacity 0.3s ease;
+  font-size: 200px;
+}
+
+.fashion-text h3 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.fashion-text p {
+  font-size: 3rem;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+@media (min-width: 768px) {
+  .fashion-grid {
+    flex-direction: row;
+  }
+
+  .fashion-card {
+    flex: 1;
+  }
+}
