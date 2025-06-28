@@ -5,10 +5,10 @@ import { FaStar, FaStarHalfAlt, FaRegStar, FaFacebookF, FaTwitter, FaPinterestP,
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Header from './Header';
+import Footer from './Footer';
 import img1 from '../assets/img/gallery/s1i1.jpg';
 import img2 from '../assets/img/gallery/s2i2.jpg';
 import img3 from '../assets/img/gallery/s3i3.jpg';
-import Footer from './Footer';
 
 const product = {
   title: 'Royal White',
@@ -48,6 +48,7 @@ const ProductDetails = () => {
   const [selectedSize, setSelectedSize] = useState('M');
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [quantity, setQuantity] = useState(1);
+  const [showSizeChart, setShowSizeChart] = useState(false);
 
   useEffect(() => {
     WebFont.load({
@@ -59,115 +60,144 @@ const ProductDetails = () => {
   }, []);
 
   return (
-   <>
-   <Header/>
-    <div className="product-details">
-      <div className="details-container">
-        <div className="left-column">
-          <img src={selectedImage} alt="Selected" className="main-image" />
-          <div className="thumbnails">
-            {product.images.map((img, i) => (
-              <img key={i} src={img} alt="thumb" onClick={() => setSelectedImage(img)} />
-            ))}
-          </div>
-        </div>
-
-        <div className="right-column">
-          <span className="category">{product.category}</span>
-          <h2>{product.title}</h2>
-          <div className="rating">
-            {Array.from({ length: 5 }).map((_, i) =>
-              i < Math.floor(product.rating) ? (
-                <FaStar key={i} />
-              ) : i < product.rating ? (
-                <FaStarHalfAlt key={i} />
-              ) : (
-                <FaRegStar key={i} />
-              )
-            )}
-            <span>({product.reviewCount} Reviews)</span>
-          </div>
-
-          <div className="price">
-            <span className="new">${product.price.toFixed(2)}</span>
-            <span className="old">${product.originalPrice.toFixed(2)}</span>
-          </div>
-
-          <p className="desc">{product.description}</p>
-
-          <div className="color-picker">
-            <strong>Color:</strong>
-            {product.colors.map((color, i) => (
-              <span
-                key={i}
-                style={{ backgroundColor: color }}
-                className={`color-swatch ${selectedColor === color ? 'selected' : ''}`}
-                onClick={() => setSelectedColor(color)}
-              ></span>
-            ))}
-          </div>
-
-          <div className="sizes">
-            <strong>Size:</strong>
-            {product.sizes.map((size) => (
-              <button
-                key={size}
-                className={selectedSize === size ? 'active' : ''}
-                onClick={() => setSelectedSize(size)}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
-
-          <div className="stock">
-            {product.inStock ? (
-              <span className="in-stock">In Stock</span>
-            ) : (
-              <span className="out-stock">Out of Stock</span>
-            )}
-          </div>
-
-          <div className="quantity">
-            <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
-            <span>{quantity}</span>
-            <button onClick={() => setQuantity(quantity + 1)}>+</button>
-          </div>
-
-          <div className="buttons">
-            <button className="add-cart">Add To Cart</button>
-            <button className="buy-now">Buy Now</button>
-          </div>
-
-          <div className="meta">
-            <p>Tags: {product.tags.join(', ')}</p>
-            <p className="share">
-              Share: <FaFacebookF /> <FaTwitter /> <FaPinterestP /> <FaLinkedinIn />
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Review Section */}
-      <div className="review-section" data-aos="fade-up">
-        <h3 className="review-heading">Customer Reviews</h3>
-        <div className="review-cards">
-          {reviews.map((review, idx) => (
-            <div key={idx} className="review-card" data-aos="fade-up" data-aos-delay={`${idx * 100}`}>
-              <h4>{review.name}</h4>
-              <div className="stars">
-                {Array.from({ length: 5 }).map((_, i) =>
-                  i < review.rating ? <FaStar key={i} color="#f1c40f" /> : <FaRegStar key={i} />
-                )}
-              </div>
-              <p>{review.comment}</p>
+    <>
+      <Header />
+      <div className="product-details">
+        <div className="details-container">
+          <div className="left-column">
+            <img src={selectedImage} alt="Selected" className="main-image" />
+            <div className="thumbnails">
+              {product.images.map((img, i) => (
+                <img key={i} src={img} alt="thumb" onClick={() => setSelectedImage(img)} />
+              ))}
             </div>
-          ))}
+          </div>
+
+          <div className="right-column">
+            <span className="category">{product.category}</span>
+            <h2>{product.title}</h2>
+            <div className="rating">
+              {Array.from({ length: 5 }).map((_, i) =>
+                i < Math.floor(product.rating) ? (
+                  <FaStar key={i} />
+                ) : i < product.rating ? (
+                  <FaStarHalfAlt key={i} />
+                ) : (
+                  <FaRegStar key={i} />
+                )
+              )}
+              <span>({product.reviewCount} Reviews)</span>
+            </div>
+
+            <div className="price">
+              <span className="new">${product.price.toFixed(2)}</span>
+              <span className="old">${product.originalPrice.toFixed(2)}</span>
+            </div>
+
+            <p className="desc">{product.description}</p>
+
+            <div className="color-picker">
+              <strong>Color:</strong>
+              {product.colors.map((color, i) => (
+                <span
+                  key={i}
+                  style={{ backgroundColor: color }}
+                  className={`color-swatch ${selectedColor === color ? 'selected' : ''}`}
+                  onClick={() => setSelectedColor(color)}
+                ></span>
+              ))}
+            </div>
+
+            <div className="sizes">
+              <strong>Size:</strong>
+              {product.sizes.map((size) => (
+                <button
+                  key={size}
+                  className={selectedSize === size ? 'active' : ''}
+                  onClick={() => setSelectedSize(size)}
+                >
+                  {size}
+                </button>
+              ))}
+              <button className="size-chart-btn" onClick={() => setShowSizeChart(true)}>
+                View Size Chart
+              </button>
+            </div>
+
+            {showSizeChart && (
+              <div className="size-chart-modal">
+                <div className="size-chart-content" data-aos="zoom-in">
+                  <span className="close-btn" onClick={() => setShowSizeChart(false)}>&times;</span>
+                  <h3>Size Chart</h3>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Size</th>
+                        <th>Bust (inches)</th>
+                        <th>Waist (inches)</th>
+                        <th>Hip (inches)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>S</td><td>32</td><td>26</td><td>34</td></tr>
+                      <tr><td>M</td><td>34</td><td>28</td><td>36</td></tr>
+                      <tr><td>L</td><td>36</td><td>30</td><td>38</td></tr>
+                      <tr><td>XL</td><td>38</td><td>32</td><td>40</td></tr>
+                      <tr><td>XXL</td><td>40</td><td>34</td><td>42</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            <div className="stock">
+              {product.inStock ? (
+                <span className="in-stock">In Stock</span>
+              ) : (
+                <span className="out-stock">Out of Stock</span>
+              )}
+            </div>
+
+            <div className="quantity">
+              <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
+              <span>{quantity}</span>
+              <button onClick={() => setQuantity(quantity + 1)}>+</button>
+            </div>
+
+            <div className="buttons">
+              <button className="add-cart">Add To Cart</button>
+              <button className="buy-now">Buy Now</button>
+            </div>
+
+            <div className="meta">
+              <p>Tags: {product.tags.join(', ')}</p>
+              <p className="share">
+                Share: <FaFacebookF /> <FaTwitter /> <FaPinterestP /> <FaLinkedinIn />
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Review Section */}
+        <div className="review-section" data-aos="fade-up">
+          <h3 className="review-heading">Customer Reviews</h3>
+          <div className="review-cards">
+            {reviews.map((review, idx) => (
+              <div key={idx} className="review-card" data-aos="fade-up" data-aos-delay={`${idx * 100}`}>
+                <h4>{review.name}</h4>
+                <div className="stars">
+                  {Array.from({ length: 5 }).map((_, i) =>
+                    i < review.rating ? <FaStar key={i} color="#f1c40f" /> : <FaRegStar key={i} />
+                  )}
+                </div>
+                <p>{review.comment}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-    <Footer/>
-   </>
+      <Footer />
+    </>
   );
 };
 
