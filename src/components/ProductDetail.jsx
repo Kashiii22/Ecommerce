@@ -195,6 +195,37 @@ const ProductDetails = () => {
             ))}
           </div>
         </div>
+        {/* Similar Products Section */}
+<div className="similar-products-section" data-aos="fade-up">
+  <h3 className="review-heading">Similar Products</h3>
+  <div className="similar-products-grid">
+    {[
+      {
+        title: 'I1',
+        price: 68.0,
+        img: img2,
+      },
+      {
+        title: 'I2',
+        price: 82.0,
+        img: img3,
+      },
+      {
+        title: 'I3',
+        price: 70.0,
+        img: img1,
+      },
+    ].map((item, idx) => (
+      <div className="similar-card" key={idx} data-aos="fade-up" data-aos-delay={`${idx * 150}`}>
+        <img src={item.img} alt={item.title} className="similar-img" />
+        <h4 className="similar-title">{item.title}</h4>
+        <p className="similar-price">${item.price.toFixed(2)}</p>
+        <button className="view-btn">View</button>
+      </div>
+    ))}
+  </div>
+</div>
+
       </div>
       <Footer />
     </>

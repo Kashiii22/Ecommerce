@@ -475,3 +475,62 @@
   cursor: pointer;
   color: #333;
 }
+.similar-products-section {
+  margin: 50px 0;
+  padding: 0 20px;
+}
+
+.similar-products-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.similar-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  width: 220px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.similar-card:hover {
+  transform: translateY(-5px);
+}
+
+.similar-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.similar-title {
+  font-size: 1.1rem;
+  margin: 10px 0 5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.similar-price {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.view-btn {
+  background-color: #222;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.view-btn:hover {
+  background-color: #444;
+}

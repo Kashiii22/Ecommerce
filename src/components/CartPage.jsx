@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './CartPage.css';
-import arrivalImage from '../assets/arrival3.png';
+import arrivalImage from '../assets/img/gallery/s1i1.jpg';
 import Footer from './Footer.jsx';
 import Header from './Header.jsx'
 import { FaHeart, FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
@@ -39,7 +39,7 @@ const CartSummary = ({ items }) => {
   const [promoCode, setPromoCode] = useState('');
 
   const handleCheckout = () => {
-    navigate('/payment'); // 🔁 Redirect to PaymentPage
+    navigate('/payment');
   };
 
   return (
@@ -89,18 +89,18 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
-      name: 'Stylish T-Shirt',
+      name: 'Item1',
       size: 'M',
-      color: 'Red',
+      color: 'White',
       price: 29.99,
       quantity: 1,
       image: arrivalImage
     },
     {
       id: 2,
-      name: 'Stylish T-Shirt',
-      size: 'M',
-      color: 'Red',
+      name: 'Item2',
+      size: 'XL',
+      color: 'White',
       price: 29.99,
       quantity: 1,
       image: arrivalImage
