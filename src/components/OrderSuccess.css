@@ -1,0 +1,69 @@
+/* styles/OrderSuccess.css */
+.order-success {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f8fc;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.success-box {
+  background: #fff;
+  padding: 3rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(147, 94, 255, 0.2);
+  max-width: 600px;
+  width: 100%;
+  animation: fadeIn 1s ease;
+}
+
+.check-icon {
+  color: #935eff;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.success-box h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.desc {
+  color: #555;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.success-btn {
+  padding: 0.8rem 1.8rem;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s ease;
+  border: 2px solid #935eff;
+}
+
+.success-btn.filled {
+  background-color: #935eff;
+  color: white;
+}
+
+.success-btn.outline {
+  background-color: white;
+  color: #935eff;
+}
+
+.success-btn:hover {
+  transform: translateY(-2px);
+}

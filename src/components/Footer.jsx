@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="footer-container">
 
         <div className="footer-section brand" data-aos="fade-up">
-          <h2>ShopifyX</h2>
+          <h2>Shopify</h2>
           <p>Your go-to destination for stylish, affordable fashion. We deliver trends with quality and care.</p>
         </div>
 

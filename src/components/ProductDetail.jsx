@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ProductDetail.css';
 import {
@@ -17,16 +17,38 @@ import Header from './Header';
 import Footer from './Footer';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+const RecommendationCard = ({ product }) => (
+  <div className="suggestion-card" data-aos="flip-up">
+    <img src={product.image} alt={product.name} />
+    <p>{product.name}</p>
+    <p className="price">
+      <span className="discounted-price">₹{product.discountedPrice.toFixed(2)}</span>
+    </p>
+  </div>
+);
 const ProductDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // ✅ useNavigate inside component
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [showSizeChart, setShowSizeChart] = useState(false);
-
+  const [recommendations] = useState([
+    {
+      id: 3,
+      name: 'Cool Sneakers',
+      image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80',
+      discountedPrice: 39.99,
+    },
+    {
+      id: 4,
+      name: 'Classic Shirt',
+      image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80',
+      discountedPrice: 29.99,
+    },
+  ]);
   useEffect(() => {
     AOS.init({ duration: 1000 });
 
@@ -58,6 +80,9 @@ const ProductDetails = () => {
       })
       .then(() => {
         toast.success('Added to cart successfully!');
+        setTimeout(() => {
+          navigate('/cart'); // ✅ Redirect to cart
+        }, 1500);
       })
       .catch((err) => {
         console.error('Add to cart failed:', err);
@@ -72,6 +97,7 @@ const ProductDetails = () => {
       <Header />
       <div className="product-details">
         <div className="details-container">
+          {/* Left - Image Section */}
           <div className="left-column">
             <img src={selectedImage} alt="Selected" className="main-image" />
             <div className="thumbnails">
@@ -89,9 +115,11 @@ const ProductDetails = () => {
             </div>
           </div>
 
+          {/* Right - Product Details */}
           <div className="right-column">
             <span className="category">{product.product.category}</span>
             <h2>{product.product.prod_name}</h2>
+
             <div className="rating">
               {Array.from({ length: 5 }).map((_, i) =>
                 i < 4 ? (
@@ -192,6 +220,16 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+         <section className="recommendations">
+        <h3 data-aos="fade-up">You May Also Like</h3>
+        <div className="product-suggestions">
+          {recommendations.map((product) => (
+            <RecommendationCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+
       <Footer />
       <ToastContainer position="bottom-right" autoClose={3000} />
     </>

@@ -4,15 +4,19 @@ import 'aos/dist/aos.css';
 import axios from 'axios';
 import './PaymentPage.css';
 import Header from './Header';
+import { useNavigate } from 'react-router-dom';
+import Footer from './Footer';
 import { FaCreditCard, FaWallet, FaMoneyBillWave } from 'react-icons/fa';
 
 const BASE_URL = 'https://ritiksinha2727.pythonanywhere.com';
+
+
 
 const PaymentPage = () => {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
-
+const navigate = useNavigate();
   const shipping = 0;
   const tax = 0;
   const grandTotal = totalAmount + shipping + tax;
@@ -133,10 +137,13 @@ const PaymentPage = () => {
               <strong>₹{grandTotal.toFixed(2)}</strong>
             </div>
 
-            <button className="place-order-btn">Place Order</button>
+<button className="place-order-btn" onClick={() => navigate('/order-success')}>
+  Place Order
+</button>
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

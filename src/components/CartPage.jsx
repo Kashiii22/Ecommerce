@@ -77,33 +77,12 @@ const CartSummary = ({ items, discountAmount }) => {
   );
 };
 
-const RecommendationCard = ({ product }) => (
-  <div className="suggestion-card" data-aos="flip-up">
-    <img src={product.image} alt={product.name} />
-    <p>{product.name}</p>
-    <p className="price">
-      <span className="discounted-price">₹{product.discountedPrice.toFixed(2)}</span>
-    </p>
-  </div>
-);
+
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [discountAmount, setDiscountAmount] = useState(0);
-  const [recommendations] = useState([
-    {
-      id: 3,
-      name: 'Cool Sneakers',
-      image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80',
-      discountedPrice: 39.99,
-    },
-    {
-      id: 4,
-      name: 'Classic Shirt',
-      image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80',
-      discountedPrice: 29.99,
-    },
-  ]);
+
 
  useEffect(() => {
   AOS.init({ duration: 800, once: true });
@@ -128,7 +107,6 @@ const CartPage = () => {
             image: `${BASE_URL}${item.product.product_images[0]?.image}`,
           };
         } else {
-          // Add quantity if already present
           groupedItems[key].quantity += item.quantity;
         }
       });
@@ -162,15 +140,7 @@ const CartPage = () => {
         <CartSummary items={cartItems} discountAmount={discountAmount} />
       </main>
 
-      <section className="recommendations">
-        <h3 data-aos="fade-up">You May Also Like</h3>
-        <div className="product-suggestions">
-          {recommendations.map((product) => (
-            <RecommendationCard key={product.id} product={product} />
-          ))}
-        </div>
-      </section>
-
+   
       <Footer />
     </div>
   );

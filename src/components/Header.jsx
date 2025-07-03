@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import './Header.css';
-import { FaShoppingBag, FaSearch } from 'react-icons/fa';
+import { FaSearch, FaUser } from 'react-icons/fa'; // Replace bag with user icon
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const placeholderRef = useRef(null);
@@ -24,7 +25,7 @@ const Header = () => {
           placeholderRef.current.textContent = currentText;
         } else {
           typing = false;
-          setTimeout(() => {}, 1000); // small pause before deleting
+          setTimeout(() => {}, 1000);
         }
       } else {
         if (charIndex > 0) {
@@ -42,27 +43,27 @@ const Header = () => {
 
   return (
     <header className="main-header">
-      <div className="logo">SHOPIFY</div>
+      <Link to="/" className="logo">SHOPIFY</Link>
 
       <nav className="nav-links">
-        <a href="#">HOME</a>
-        <a href="#">SHOP</a>
+        <Link to="/">HOME</Link>
+        <Link to="/product">SHOP</Link>
         <a href="#">ABOUT</a>
         <a href="#">BLOG</a>
         <a href="#">CONTACT</a>
       </nav>
 
-      {/* Search Bar with Icon */}
+      {/* Search Bar */}
       <div className="search-bar">
         <FaSearch className="search-icon" />
         <input type="text" className="search-input" />
         <span className="search-placeholder" ref={placeholderRef}></span>
       </div>
 
-      <div className="cart-icon" style={{ backgroundColor: '#a678ff', color: 'white' }}>
-        <FaShoppingBag />
-        <span className="cart-count">0</span>
-      </div>
+      {/* Profile Icon */}
+      <Link to="/profile" className="profile-icon" style={{ backgroundColor: '#a678ff', color: 'white' }}>
+        <FaUser />
+      </Link>
     </header>
   );
 };
