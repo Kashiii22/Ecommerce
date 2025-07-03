@@ -1,26 +1,19 @@
-import React, { useEffect } from 'react';
-import WebFont from 'webfontloader';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './HeroSection.css';
 
-import img1 from '../assets/img/gallery/gallery1.png';
-import img2 from '../assets/img/gallery/gallery2.png';
-import img3 from '../assets/img/gallery/gallery3.png';
-import img4 from '../assets/img/gallery/gallery4.png';
-
-const arrivals = [
-  { title: 'Knitted Jumper', price: '₹1,299', img: img1 },
-  { title: 'Hoodie', price: '₹999', img: img2 },
-  { title: 'Sneakers', price: '₹1,999', img: img3 },
-  { title: 'Smart Casuals', price: '₹799', img: img4 },
-];
-
 const NewArrivals = () => {
+  const [products, setProducts] = useState([]);
+
   useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ['Playfair Display:600,700', 'Poppins:400,500,600'],
-      },
-    });
+    axios.get('https://ritiksinha2727.pythonanywhere.com/')
+      .then((response) => {
+        setProducts(response.data.products);
+        console.log('Fetched Products:', response.data.products);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
   }, []);
 
   return (
@@ -30,20 +23,25 @@ const NewArrivals = () => {
       </h2>
 
       <div className="arrivals-grid">
-        {arrivals.map((item, i) => (
-          <div
-            className="arrival-card"
-            key={i}
-            data-aos="fade-up"
-            data-aos-delay={`${i * 100}`}
-          >
-            <img src={item.img} alt={item.title} />
-            <div className="arrival-info" style={{ fontFamily: 'Poppins' }}>
-              <h4>{item.title}</h4>
-              <p>{item.price}</p>
+        {products.map((item, i) => {
+          const product = item.product;
+          const imageUrl = `https://ritiksinha2727.pythonanywhere.com${item.product_images[0]?.image || ''}`;
+          
+          return (
+            <div
+              className="arrival-card"
+              key={item.id}
+              data-aos="fade-up"
+              data-aos-delay={`${i * 100}`}
+            >
+              <img src={imageUrl} alt={product.prod_name} />
+              <div className="arrival-info" style={{ fontFamily: 'Poppins' }}>
+                <h4>{product.prod_name}</h4>
+                <p>₹{item.offer_price}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="browse-btn-container" data-aos="fade-up">

@@ -1,63 +1,71 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import './ProductDetail.css';
-import WebFont from 'webfontloader';
-import { FaStar, FaStarHalfAlt, FaRegStar, FaFacebookF, FaTwitter, FaPinterestP, FaLinkedinIn } from 'react-icons/fa';
+import {
+  FaStar,
+  FaStarHalfAlt,
+  FaRegStar,
+  FaFacebookF,
+  FaTwitter,
+  FaPinterestP,
+  FaLinkedinIn,
+} from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Header from './Header';
 import Footer from './Footer';
-import img1 from '../assets/img/gallery/s1i1.jpg';
-import img2 from '../assets/img/gallery/s2i2.jpg';
-import img3 from '../assets/img/gallery/s3i3.jpg';
-
-const product = {
-  title: 'Royal White',
-  category: 'Suits',
-  rating: 4.8,
-  reviewCount: 245,
-  price: 75.0,
-  originalPrice: 150.0,
-  colors: ['#5a3e36', '#0f0f0f', '#2c7a7b', '#008080'],
-  sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-  inStock: true,
-  tags: ['Women', 'Fashion', 'Suits'],
-  images: [img1, img2, img3],
-  description: `This is a symbol of elegance, royalty and fashion in parallel.`,
-};
-
-const reviews = [
-  {
-    name: 'Ananya Mehta',
-    rating: 5,
-    comment: 'Absolutely loved the quality and fit!',
-  },
-  {
-    name: 'Riya Sharma',
-    rating: 4,
-    comment: 'Looks stunning and fits perfectly. Would recommend!',
-  },
-  {
-    name: 'Kritika Verma',
-    rating: 5,
-    comment: 'So elegant and comfortable. Got so many compliments!',
-  },
-];
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetails = () => {
-  const [selectedImage, setSelectedImage] = useState(product.images[0]);
-  const [selectedSize, setSelectedSize] = useState('M');
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [showSizeChart, setShowSizeChart] = useState(false);
 
   useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ['Playfair Display:600,700', 'Poppins:400,500,600'],
-      },
-    });
     AOS.init({ duration: 1000 });
-  }, []);
+
+    axios
+      .get(`https://ritiksinha2727.pythonanywhere.com/product_detail/${id}/`)
+      .then((res) => {
+        const productData = res.data.product;
+        setProduct(productData);
+        setSelectedSize(productData.size_available[0]?.size_code || '');
+        setSelectedColor(productData.color_code || '');
+        setSelectedImage(
+          `https://ritiksinha2727.pythonanywhere.com${productData.product_images[0]?.image || ''}`
+        );
+      })
+      .catch((err) => console.error('Error fetching product:', err));
+  }, [id]);
+
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      toast.error('Please select a size!');
+      return;
+    }
+
+    axios
+      .post('https://ritiksinha2727.pythonanywhere.com/order/add-to-cart/', {
+        product_id: product.id,
+        size: selectedSize,
+        quantity: quantity,
+      })
+      .then(() => {
+        toast.success('Added to cart successfully!');
+      })
+      .catch((err) => {
+        console.error('Add to cart failed:', err);
+        toast.error('Failed to add to cart.');
+      });
+  };
+
+  if (!product) return <div className="loading">Loading...</div>;
 
   return (
     <>
@@ -67,56 +75,60 @@ const ProductDetails = () => {
           <div className="left-column">
             <img src={selectedImage} alt="Selected" className="main-image" />
             <div className="thumbnails">
-              {product.images.map((img, i) => (
-                <img key={i} src={img} alt="thumb" onClick={() => setSelectedImage(img)} />
-              ))}
+              {product.product_images.map((imgObj, i) => {
+                const imageUrl = `https://ritiksinha2727.pythonanywhere.com${imgObj.image}`;
+                return (
+                  <img
+                    key={i}
+                    src={imageUrl}
+                    alt="thumb"
+                    onClick={() => setSelectedImage(imageUrl)}
+                  />
+                );
+              })}
             </div>
           </div>
 
           <div className="right-column">
-            <span className="category">{product.category}</span>
-            <h2>{product.title}</h2>
+            <span className="category">{product.product.category}</span>
+            <h2>{product.product.prod_name}</h2>
             <div className="rating">
               {Array.from({ length: 5 }).map((_, i) =>
-                i < Math.floor(product.rating) ? (
+                i < 4 ? (
                   <FaStar key={i} />
-                ) : i < product.rating ? (
+                ) : i < 4.5 ? (
                   <FaStarHalfAlt key={i} />
                 ) : (
                   <FaRegStar key={i} />
                 )
               )}
-              <span>({product.reviewCount} Reviews)</span>
+              <span>(Based on Reviews)</span>
             </div>
 
             <div className="price">
-              <span className="new">${product.price.toFixed(2)}</span>
-              <span className="old">${product.originalPrice.toFixed(2)}</span>
+              <span className="new">₹{product.offer_price}</span>
             </div>
 
-            <p className="desc">{product.description}</p>
+            <p className="desc">{product.product.description}</p>
 
             <div className="color-picker">
               <strong>Color:</strong>
-              {product.colors.map((color, i) => (
-                <span
-                  key={i}
-                  style={{ backgroundColor: color }}
-                  className={`color-swatch ${selectedColor === color ? 'selected' : ''}`}
-                  onClick={() => setSelectedColor(color)}
-                ></span>
-              ))}
+              <span
+                style={{ backgroundColor: product.color_code }}
+                className={`color-swatch ${selectedColor === product.color_code ? 'selected' : ''}`}
+                onClick={() => setSelectedColor(product.color_code)}
+              ></span>
             </div>
 
             <div className="sizes">
               <strong>Size:</strong>
-              {product.sizes.map((size) => (
+              {product.size_available.map((s) => (
                 <button
-                  key={size}
-                  className={selectedSize === size ? 'active' : ''}
-                  onClick={() => setSelectedSize(size)}
+                  key={s.size_code}
+                  className={selectedSize === s.size_code ? 'active' : ''}
+                  onClick={() => setSelectedSize(s.size_code)}
                 >
-                  {size}
+                  {s.size_code}
                 </button>
               ))}
               <button className="size-chart-btn" onClick={() => setShowSizeChart(true)}>
@@ -127,7 +139,9 @@ const ProductDetails = () => {
             {showSizeChart && (
               <div className="size-chart-modal">
                 <div className="size-chart-content" data-aos="zoom-in">
-                  <span className="close-btn" onClick={() => setShowSizeChart(false)}>&times;</span>
+                  <span className="close-btn" onClick={() => setShowSizeChart(false)}>
+                    &times;
+                  </span>
                   <h3>Size Chart</h3>
                   <table>
                     <thead>
@@ -151,10 +165,10 @@ const ProductDetails = () => {
             )}
 
             <div className="stock">
-              {product.inStock ? (
-                <span className="in-stock">In Stock</span>
-              ) : (
+              {product.out_of_stock ? (
                 <span className="out-stock">Out of Stock</span>
+              ) : (
+                <span className="in-stock">In Stock</span>
               )}
             </div>
 
@@ -165,69 +179,21 @@ const ProductDetails = () => {
             </div>
 
             <div className="buttons">
-              <button className="add-cart">Add To Cart</button>
+              <button className="add-cart" onClick={handleAddToCart}>Add To Cart</button>
               <button className="buy-now">Buy Now</button>
             </div>
 
             <div className="meta">
-              <p>Tags: {product.tags.join(', ')}</p>
+              <p>Tags: {product.tag}</p>
               <p className="share">
                 Share: <FaFacebookF /> <FaTwitter /> <FaPinterestP /> <FaLinkedinIn />
               </p>
             </div>
           </div>
         </div>
-
-        {/* Review Section */}
-        <div className="review-section" data-aos="fade-up">
-          <h3 className="review-heading">Customer Reviews</h3>
-          <div className="review-cards">
-            {reviews.map((review, idx) => (
-              <div key={idx} className="review-card" data-aos="fade-up" data-aos-delay={`${idx * 100}`}>
-                <h4>{review.name}</h4>
-                <div className="stars">
-                  {Array.from({ length: 5 }).map((_, i) =>
-                    i < review.rating ? <FaStar key={i} color="#f1c40f" /> : <FaRegStar key={i} />
-                  )}
-                </div>
-                <p>{review.comment}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        {/* Similar Products Section */}
-<div className="similar-products-section" data-aos="fade-up">
-  <h3 className="review-heading">Similar Products</h3>
-  <div className="similar-products-grid">
-    {[
-      {
-        title: 'I1',
-        price: 68.0,
-        img: img2,
-      },
-      {
-        title: 'I2',
-        price: 82.0,
-        img: img3,
-      },
-      {
-        title: 'I3',
-        price: 70.0,
-        img: img1,
-      },
-    ].map((item, idx) => (
-      <div className="similar-card" key={idx} data-aos="fade-up" data-aos-delay={`${idx * 150}`}>
-        <img src={item.img} alt={item.title} className="similar-img" />
-        <h4 className="similar-title">{item.title}</h4>
-        <p className="similar-price">${item.price.toFixed(2)}</p>
-        <button className="view-btn">View</button>
-      </div>
-    ))}
-  </div>
-</div>
-
       </div>
       <Footer />
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </>
   );
 };
