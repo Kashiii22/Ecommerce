@@ -8,6 +8,7 @@ import MyOrders from './components/MyOrders';
 import OrderDetails from './components/OrderDetails';
 import UserProfile from './components/UserProfile';
 import ProductList from './components/ProductList';
+import AddressPage from './components/AddressPage';
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +22,7 @@ function App() {
         <Route path='/order-details' element={<OrderDetails/>}/>
         <Route path='/profile' element={<UserProfile/>}/>
         <Route path='/product' element={<ProductList/>}/>
+        <Route path='/address' element={<AddressPage/>}/>
       </Routes>
     </BrowserRouter>
   );

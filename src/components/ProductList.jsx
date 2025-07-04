@@ -13,6 +13,14 @@ const sampleProducts = [
   { id: 3, name: 'Cartoon Tee', price: 799, brand: 'Nike', category: 'Shirts', image: 'https://via.placeholder.com/220x300.png?text=Cartoon+Tee' },
   { id: 4, name: 'Denim Jacket', price: 1999, brand: 'Adidas', category: 'Jackets', image: 'https://via.placeholder.com/220x300.png?text=Denim+Jacket' },
   { id: 5, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
+    { id: 6, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
+
+      { id: 7, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
+
+        { id: 8, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
+  { id: 9, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
+  { id: 10, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
+
 ];
 
 const ProductList = () => {
@@ -49,16 +57,18 @@ const ProductList = () => {
     <>
       <Header />
       <div className="product-layout">
-        <ProductFilter
-          category={category}
-          setCategory={setCategory}
-          brand={brand}
-          setBrand={setBrand}
-          priceRange={priceRange}
-          setPriceRange={setPriceRange}
-          clearFilters={clearFilters}
-          totalCount={filtered.length}
-        />
+        <div className="filter-wrapper">
+          <ProductFilter
+            category={category}
+            setCategory={setCategory}
+            brand={brand}
+            setBrand={setBrand}
+            priceRange={priceRange}
+            setPriceRange={setPriceRange}
+            clearFilters={clearFilters}
+            totalCount={filtered.length}
+          />
+        </div>
 
         <div className="product-list-grid">
           <h2 className="browse-heading">Explore Our Products</h2>
@@ -71,10 +81,7 @@ const ProductList = () => {
                     <h4>{product.name}</h4>
                     <p>{product.brand} | {product.category}</p>
                     <strong>₹{product.price}</strong>
-                    <button
-                      className="view-btn"
-                      onClick={() => navigate(`/product/${product.id}`)}
-                    >
+                    <button className="view-btn" onClick={() => navigate(`/product/${product.id}`)}>
                       View Details
                     </button>
                   </div>

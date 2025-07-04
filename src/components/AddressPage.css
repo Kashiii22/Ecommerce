@@ -1,0 +1,106 @@
+/* Centering Layout */
+.profile-page-center {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9ff;
+  padding: 2rem 1rem;
+}
+
+/* Main Wrapper */
+.profile-wrapper {
+  max-width: 800px;
+  width: 100%;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Heading */
+.profile-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #935eff;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Section Styling */
+.profile-section {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Form Fields */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  color: #444;
+  font-weight: 500;
+}
+
+.form-group input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #935eff;
+  outline: none;
+}
+
+/* Save Button */
+.orders-btn {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.save-btn {
+  background-color: #935eff;
+  color: white;
+  font-size: 1rem;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+  background-color: #7e4be3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-wrapper {
+    padding: 1.5rem;
+  }
+
+  .profile-heading {
+    font-size: 2rem;
+  }
+
+  .form-group input {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  .save-btn {
+    width: 100%;
+  }
+}
