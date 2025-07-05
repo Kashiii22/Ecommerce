@@ -1,25 +1,30 @@
+:root {
+  --primary-color: #2874f0;
+  --background: #f1f3f6;
+  --card-bg: #ffffff;
+  --text-color: #333;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .profile-page-center {
   min-height: 100vh;
-  background-color: #f9f9ff;
+  background-color: var(--background);
   display: flex;
   justify-content: center;
-  padding: 3rem 2rem;
+  padding: 2rem 1rem;
   box-sizing: border-box;
-  width: 100%;
 }
 
 .profile-wrapper {
   display: flex;
   width: 100%;
-  /* max-width: 1400px; or 1500px if you want wider */
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  max-width: 1400px;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
   overflow: hidden;
 }
 
-
-/* Horizontal layout */
 .content-row {
   display: flex;
   width: 100%;
@@ -27,20 +32,21 @@
 
 /* Sidebar */
 .sidebar {
-  width: 300px;
-  background: linear-gradient(to bottom, #935eff, #c6a4ff);
-  padding: 3rem 2rem;
+  width: 240px;
+  background-color: var(--primary-color);
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 3rem 1.5rem;
 }
 
 .profile-pic-box img {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   margin-bottom: 1rem;
+  border: 2px solid white;
 }
 
 .profile-pic-box h4 {
@@ -51,92 +57,94 @@
 
 .sidebar-menu {
   width: 100%;
+  list-style: none;
   padding: 0;
   margin-top: 2rem;
-  list-style: none;
 }
 
 .sidebar-menu li {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 20px;
-  border-radius: 10px;
+  padding: 12px 16px;
+  border-radius: 8px;
   font-weight: 500;
+  font-size: 0.95rem;
   cursor: pointer;
-  margin-bottom: 10px;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
 }
 
-.sidebar-menu li.active,
-.sidebar-menu li:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+.sidebar-menu li:hover,
+.sidebar-menu li.active {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .icon {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 /* Main content */
 .main-content {
   flex: 1;
-  padding: 4rem 6rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  padding: 3rem 5rem;
+  max-width: 1200px; /* Increased to match wide card */
 }
 
 .profile-heading {
   font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
-  color: #935eff;
-  margin-bottom: 2.5rem;
+  font-size: 2.4rem;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
 }
 
 .profile-section {
-  background-color: #fff;
+  background-color: var(--card-bg);
   padding: 2.5rem 3rem;
   border-radius: 12px;
-  box-shadow: 0 0 14px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow);
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px; /* Widened the card */
 }
 
 .profile-section h3 {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   margin-bottom: 1.5rem;
-  color: #222;
   font-weight: 600;
+  color: var(--text-color);
 }
 
-/* Form */
+.profile-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.25rem;
 }
 
 .form-group label {
-  margin-bottom: 0.5rem;
-  color: #444;
   font-weight: 500;
+  color: #555;
+  margin-bottom: 0.5rem;
 }
 
 .form-group input,
 .form-group select {
-  padding: 13px 15px;
+  padding: 12px 14px;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #f5f5f5;
-  color: #333;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: #f9f9f9;
+  color: #444;
 }
 
-.form-group input:disabled,
-.form-group select:disabled {
-  cursor: not-allowed;
-  background-color: #efefef;
+input:disabled,
+select:disabled {
+  background-color: #ececec;
   color: #888;
+  cursor: not-allowed;
 }
 
 /* Responsive */
@@ -148,8 +156,9 @@
   .sidebar {
     width: 100%;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
   }
 
   .sidebar-menu {
@@ -159,10 +168,16 @@
   }
 
   .main-content {
-    padding: 2rem;
+    padding: 2rem 1.5rem;
+    max-width: 100%;
   }
 
   .profile-section {
+    padding: 1.5rem;
     max-width: 100%;
+  }
+
+  .profile-form-grid {
+    grid-template-columns: 1fr;
   }
 }

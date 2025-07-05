@@ -5,6 +5,7 @@ import WebFont from 'webfontloader';
 import { useNavigate } from 'react-router-dom';
 import './UserProfile.css';
 import Footer from './Footer';
+import Header from './Header';
 
 import { FaUser, FaBox, FaHome, FaCreditCard, FaSignOutAlt } from 'react-icons/fa';
 
@@ -28,6 +29,7 @@ const UserProfile = () => {
 
   return (
     <>
+      <Header />
       <div className="profile-page-center">
         <div className="profile-wrapper">
           <div className="content-row">
@@ -40,7 +42,7 @@ const UserProfile = () => {
               <ul className="sidebar-menu">
                 <li className="active"><FaUser className="icon" /> My Profile</li>
                 <li onClick={() => navigate('/orders')}><FaBox className="icon" /> My Orders</li>
-                <li onClick={() => navigate('/address')}><FaHome className="icon" /> Address </li>
+                <li onClick={() => navigate('/address')}><FaHome className="icon" /> Address</li>
                 <li><FaCreditCard className="icon" /> Saved Cards</li>
                 <li><FaSignOutAlt className="icon" /> Logout</li>
               </ul>
