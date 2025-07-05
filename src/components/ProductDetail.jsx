@@ -208,7 +208,7 @@ const ProductDetails = () => {
 
             <div className="buttons">
               <button className="add-cart" onClick={handleAddToCart}>Add To Cart</button>
-              <button className="buy-now">Buy Now</button>
+              <button className="buy-now" onClick={handleAddToCart}>Buy Now</button>
             </div>
 
             <div className="meta">
