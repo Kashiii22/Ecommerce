@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './ProductList.css';
 import Header from './Header';
 import Footer from './Footer';
@@ -6,22 +7,6 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ProductFilter from './ProductFilter';
 import { useNavigate } from 'react-router-dom';
-
-const sampleProducts = [
-  { id: 1, name: 'Classic White Shirt', price: 999, brand: 'Zara', category: 'Shirts', image: 'https://via.placeholder.com/220x300.png?text=White+Shirt' },
-  { id: 2, name: 'Floral Summer Dress', price: 1499, brand: 'H&M', category: 'Dresses', image: 'https://via.placeholder.com/220x300.png?text=Summer+Dress' },
-  { id: 3, name: 'Cartoon Tee', price: 799, brand: 'Nike', category: 'Shirts', image: 'https://via.placeholder.com/220x300.png?text=Cartoon+Tee' },
-  { id: 4, name: 'Denim Jacket', price: 1999, brand: 'Adidas', category: 'Jackets', image: 'https://via.placeholder.com/220x300.png?text=Denim+Jacket' },
-  { id: 5, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
-    { id: 6, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
-
-      { id: 7, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
-
-        { id: 8, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
-  { id: 9, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
-  { id: 10, name: 'Kurti Set', price: 1299, brand: 'Puma', category: 'Sets', image: 'https://via.placeholder.com/220x300.png?text=Kurti+Set' },
-
-];
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -33,14 +18,35 @@ const ProductList = () => {
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
-    setProducts(sampleProducts);
-    setFiltered(sampleProducts);
+    fetchProducts();
   }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get('https://ritiksinha2727.pythonanywhere.com/');
+      const data = res.data.products;
+
+      const mappedProducts = data.map((item) => ({
+        id: item.id,
+        name: item.product?.prod_name || 'No Name',
+        price: item.offer_price || 0,
+        brand: item.tag || 'Unknown',
+        category: 'Tshirts', // from res.data.categories[0]?.category_name
+        color: item.color,
+        image: `https://ritiksinha2727.pythonanywhere.com${item.product_images[0]?.image || ''}`,
+      }));
+
+      setProducts(mappedProducts);
+      setFiltered(mappedProducts);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
 
   useEffect(() => {
     const result = products.filter((p) => {
       const matchCategory = category === 'All' || p.category === category;
-      const matchBrand = !brand || p.brand === brand;
+      const matchBrand = !brand || p.brand.toLowerCase() === brand.toLowerCase();
       const matchPrice = p.price >= priceRange.min && p.price <= priceRange.max;
       return matchCategory && matchBrand && matchPrice;
     });
