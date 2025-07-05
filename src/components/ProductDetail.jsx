@@ -81,7 +81,7 @@ const ProductDetails = () => {
       .then(() => {
         toast.success('Added to cart successfully!');
         setTimeout(() => {
-          navigate('/cart'); // ✅ Redirect to cart
+          navigate('/cart'); 
         }, 1500);
       })
       .catch((err) => {

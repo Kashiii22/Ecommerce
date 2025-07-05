@@ -48,7 +48,7 @@ const Header = () => {
       <nav className="nav-links">
         <Link to="/">HOME</Link>
         <Link to="/product">SHOP</Link>
-        <a href="#">ABOUT</a>
+       <Link to="/cart">CART</Link>
         <a href="#">BLOG</a>
         <a href="#">CONTACT</a>
       </nav>
